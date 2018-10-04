@@ -18,7 +18,6 @@ class BehatGenerateContentType extends BaseGenerator {
 
   protected $templatePath = __DIR__;
 
-  // We don't actually use this service. This illustrates how to inject a dependency into a Generator.
   protected $configFactory;
 
   protected $entityManager;

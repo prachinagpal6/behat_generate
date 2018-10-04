@@ -1,0 +1,13 @@
+@api @javascript @{{ key }}
+Feature: Creation of {{ key }} role Users
+  To verify {{ key }} users should have correct field type,
+  and can be created by User.
+
+  Scenario: Generate {{ key }} users.
+    Given I am logged in as a user with the "create {{ key }} content" permission
+    When I am on "user/add"
+    Then I fill in "name" with "{{ key }}-user"
+    {{ test }}
+    #Now Pressing Submit
+    When I press the "Save and publish" button
+    Then I should see "{{ label }} {{ key }}-user has been created."

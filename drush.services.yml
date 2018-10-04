@@ -14,3 +14,13 @@ services:
     arguments: ['@config.manager', '@entity_type.manager']
     tags:
       - { name: drush.generator }
+  behat_generate_user_test.commands:
+    class: \Drupal\behat_generate\Generators\BehatGenerateUserTest
+    arguments: ['@config.manager', '@entity_type.manager']
+    tags:
+      - { name: drush.generator }
+  behat_generate_taxonomy_test.commands:
+    class: \Drupal\behat_generate\Generators\BehatGenerateTaxonomyTest
+    arguments: ['@config.manager', '@entity_type.manager']
+    tags:
+      - { name: drush.generator }
