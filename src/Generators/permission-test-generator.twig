@@ -1,8 +1,8 @@
 @api @javascript @{{ key }}
 Feature: {{ key }} User permissions
-Access to site functionality should be controlled with user roles and
+  Access to site functionality should be controlled with user roles and
   permissions.
 
   Scenario: Verify {{ key }} role exists and has correct permissions
-    Given the "{{ key }}" role exists
-    {{ testcontent }}
+    Given the "{{ key|raw }}" role exists
+    {{ testcontent|raw }}

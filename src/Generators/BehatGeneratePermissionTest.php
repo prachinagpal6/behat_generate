@@ -25,7 +25,7 @@ class BehatGeneratePermissionTest extends BaseGenerator {
 
   public function __construct($configFactory = NULL, $entityManager, $name = NULL) {
     parent::__construct($name);
-    $this->configFactory = $configFactory;
+    $this->configFactory = $configFactory->get('behat_generate.settings');
     $this->entityManager = $entityManager;
   }
 
@@ -41,7 +41,12 @@ class BehatGeneratePermissionTest extends BaseGenerator {
     foreach ($roles as $key => $role) {
       $vars['key'] = $key;
       $vars['testcontent'] = $test = '';
-      $this->setDirectory('../tests/behat/features/');
+      if ($this->configFactory->get('installation_path')) {
+        $this->setDirectory($this->configFactory->get('installation_path'));
+      }
+      else {
+        $this->setDirectory('../tests/behat/features/');
+      }
 
       $userPerm = $role->getPermissions();
 
@@ -60,7 +65,6 @@ class BehatGeneratePermissionTest extends BaseGenerator {
         ->path($key . '_RolePermissions.feature')
         ->template('permission-test-generator.twig')
         ->action('replace');
-
     }
   }
 }

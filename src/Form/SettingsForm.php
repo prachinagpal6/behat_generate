@@ -40,8 +40,8 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('installation_path') != 'installation_path') {
-      $form_state->setErrorByName('installation_path', $this->t('The value is not correct.'));
+    if (!is_dir($form_state->getValue('installation_path'))) {
+      $form_state->setErrorByName('installation_path', $this->t('Not a valid directory.'));
     }
     parent::validateForm($form, $form_state);
   }

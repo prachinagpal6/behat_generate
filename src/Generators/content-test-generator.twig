@@ -4,10 +4,10 @@ Feature: Creation of {{ node_type }} content type
   and can be created by User.
 
   Scenario: Generate {{ node_type }} content nodes.
-    Given I am logged in as a user with the "create {{ node_type }} content" permission
-    When I am on "node/add/{{ node_type }}"
-    Then I fill in "edit-title" with "Test {{ node_type }} Node"
-    {{ test }}
+    Given I am logged in as a user with the "create {{ node_type|raw }} content" permission
+    When I am on "node/add/{{ node_type|raw }}"
+    Then I fill in "edit-title" with "Test {{ node_type|raw }} Node"
+{{ test|raw }}
     #Now Pressing Submit
     When I press the "Save and publish" button
-    Then I should see "{{ label }} Test {{ node_type }} has been created."
+    Then I should see "{{ label|raw }} Test {{ node_type|raw }} has been created."

@@ -6,9 +6,10 @@ Feature: Creation of various taxonomies terms
   Scenario Outline: Generate taxonomy terms
     Given I am logged in as a user with the "Administer vocabularies and terms" permission
     When I am on "admin/structure/taxonomy"
-    Then I should see "{{ vocab }}"
-    When I click "List terms" in the row with text "{{ vocab }}"
-    Then I should not see the text <term>
-      Examples:
+    Then I should see "{{ vocab|raw }}"
+    When I click "List terms" in the row with text "{{ vocab|raw }}"
+    Then I should not see the text "<term>"
+
+    Examples:
       | term |
-      {{ test }}
+      {{ test|raw }}

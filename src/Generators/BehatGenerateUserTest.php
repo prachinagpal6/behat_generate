@@ -26,7 +26,7 @@ class BehatGenerateUserTest extends BaseGenerator {
 
   public function __construct($configFactory = NULL, $entityManager, $name = NULL) {
     parent::__construct($name);
-    $this->configFactory = $configFactory;
+    $this->configFactory = $configFactory->get('behat_generate.settings');
     $this->entityManager = $entityManager;
   }
 
@@ -38,7 +38,12 @@ class BehatGenerateUserTest extends BaseGenerator {
 
     $role_types = Role::loadMultiple();
     foreach ($role_types as $role_type => $role) {
-      $this->setDirectory('../tests/behat/features/');
+      if ($this->configFactory->get('installation_path')) {
+        $this->setDirectory($this->configFactory->get('installation_path'));
+      }
+      else {
+        $this->setDirectory('../tests/behat/features/');
+      }
 
       $vars = $this->buildVars($role_type, $role);
 
@@ -127,9 +132,9 @@ class BehatGenerateUserTest extends BaseGenerator {
                         else {
                           if ($field_type == "text_with_summary" && $widget_type == "text_textarea_with_summary") {
 
-                            $vars['test'] .= str_repeat(' ', 4) . 'And I prepare "' . $field_name . '" [0][format] fields with "plain_text"' . PHP_EOL;
+                            $vars['test'] .= str_repeat(' ', 4) . 'And I prepare "' . $field_name . '[0][format]" fields with "plain_text"' . PHP_EOL;
                             $vars['test'] .= str_repeat(' ', 4) . 'And I fill in "' .
-                              $field_name . '" [0][value] with "' . $role_type . $field_label . '"' . PHP_EOL;
+                              $field_name . '[0][value]" with "' . $role_type . $field_label . '"' . PHP_EOL;
                           }
                           else {
                             if ($field_type == "text_with_summary" && $widget_type == "string_textfield") {

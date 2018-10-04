@@ -1,0 +1,6 @@
+behat_generate.behat_generate_settings:
+  title: Behat Generate Settings
+  parent: system.admin_config_development
+  description: 'Settings for Behat Generate.'
+  route_name: behat_generate.settings_form
+  weight: -20

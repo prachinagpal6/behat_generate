@@ -6,6 +6,6 @@ Feature: Content types
     Then the Content Type "{{ key }}" has "<field_name>" field
     Then the field "<field_name>" has type "<field_type>"
 
-      Examples:
+    Examples:
       | field_name | field_type |
-      {{ test }}
+      {{ test|raw }}

@@ -1,5 +1,5 @@
 behat_generate.settings_form:
-  path: '/admin/config/system/behat-generate'
+  path: '/admin/config/development/behat-generate'
   defaults:
     _title: 'behat_generate settings'
     _form: 'Drupal\behat_generate\Form\SettingsForm'

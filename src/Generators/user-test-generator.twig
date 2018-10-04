@@ -6,8 +6,8 @@ Feature: Creation of {{ key }} role Users
   Scenario: Generate {{ key }} users.
     Given I am logged in as a user with the "create {{ key }} content" permission
     When I am on "user/add"
-    Then I fill in "name" with "{{ key }}-user"
-    {{ test }}
+    Then I fill in "name" with "{{ key|raw }}-user"
+    {{ test|raw }}
     #Now Pressing Submit
     When I press the "Save and publish" button
-    Then I should see "{{ label }} {{ key }}-user has been created."
+    Then I should see "{{ label|raw }} {{ key|raw }}-user has been created."

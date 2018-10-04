@@ -1,26 +1,26 @@
 services:
   behat_generate_content_type.commands:
     class: \Drupal\behat_generate\Generators\BehatGenerateContentType
-    arguments: ['@config.manager', '@entity_type.manager']
+    arguments: ['@config.factory', '@entity_type.manager']
     tags:
       - { name: drush.generator }
   behat_generate_content_test.commands:
     class: \Drupal\behat_generate\Generators\BehatGenerateContentTest
-    arguments: ['@config.manager', '@entity_type.manager']
+    arguments: ['@config.factory', '@entity_type.manager']
     tags:
       - { name: drush.generator }
   behat_generate_permissions_test.commands:
     class: \Drupal\behat_generate\Generators\BehatGeneratePermissionTest
-    arguments: ['@config.manager', '@entity_type.manager']
+    arguments: ['@config.factory', '@entity_type.manager']
     tags:
       - { name: drush.generator }
   behat_generate_user_test.commands:
     class: \Drupal\behat_generate\Generators\BehatGenerateUserTest
-    arguments: ['@config.manager', '@entity_type.manager']
+    arguments: ['@config.factory', '@entity_type.manager']
     tags:
       - { name: drush.generator }
   behat_generate_taxonomy_test.commands:
     class: \Drupal\behat_generate\Generators\BehatGenerateTaxonomyTest
-    arguments: ['@config.manager', '@entity_type.manager']
+    arguments: ['@config.factory', '@entity_type.manager']
     tags:
       - { name: drush.generator }

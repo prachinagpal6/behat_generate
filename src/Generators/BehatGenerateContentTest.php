@@ -26,7 +26,7 @@ class BehatGenerateContentTest extends BaseGenerator {
 
   public function __construct($configFactory = NULL, $entityManager, $name = NULL) {
     parent::__construct($name);
-    $this->configFactory = $configFactory;
+    $this->configFactory = $configFactory->get('behat_generate.settings');
     $this->entityManager = $entityManager;
   }
 
@@ -38,7 +38,12 @@ class BehatGenerateContentTest extends BaseGenerator {
 
     $node_types = NodeType::loadMultiple();
     foreach ($node_types as $node_type => $node) {
-      $this->setDirectory('../tests/behat/features/');
+      if ($this->configFactory->get('installation_path')) {
+        $this->setDirectory($this->configFactory->get('installation_path'));
+      }
+      else {
+        $this->setDirectory('../tests/behat/features/');
+      }
 
       $vars = $this->buildVars($node_type, $node);
 
@@ -112,9 +117,9 @@ class BehatGenerateContentTest extends BaseGenerator {
                       else {
                         if ($field_type == "text_with_summary" && $widget_type == "text_textarea_with_summary") {
 
-                          $vars['test'] .= str_repeat(' ', 4) . 'And I prepare "' . $field_name . '" [0][format] fields with "plain_text"' . PHP_EOL;
+                          $vars['test'] .= str_repeat(' ', 4) . 'And I prepare "' . $field_name . '[0][format]" fields with "plain_text"' . PHP_EOL;
                           $vars['test'] .= str_repeat(' ', 4) . 'And I fill in "' .
-                            $field_name . '" [0][value] with "' . $node_type . $field_label . '"' . PHP_EOL;
+                            $field_name . '[0][value]" with "' . $node_type . $field_label . '"' . PHP_EOL;
                         }
                         else {
                           if ($field_type == "text_with_summary" && $widget_type == "string_textfield") {
@@ -188,7 +193,7 @@ class BehatGenerateContentTest extends BaseGenerator {
                                                 ->fetchAssoc();
                                               $val = $target_node['title'] . ' (' . $target_node['nid'] . ')';
 
-                                              $vars['test'] .= str_repeat(' ', 4) . 'And I select the first autocomplete option for ' . $val . ' on the ' . $field_label . '[0][target_id] field';
+                                              $vars['test'] .= str_repeat(' ', 4) . 'And I select the first autocomplete option for "' . $val . '" on the "' . $field_name . '[0][target_id]" field';
                                               PHP_EOL;
                                             }
                                             else {

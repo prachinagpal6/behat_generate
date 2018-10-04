@@ -25,7 +25,7 @@ class BehatGenerateTaxonomyTest extends BaseGenerator {
 
   public function __construct($configFactory = NULL, $entityManager, $name = NULL) {
     parent::__construct($name);
-    $this->configFactory = $configFactory;
+    $this->configFactory = $configFactory->get('behat_generate.settings');
     $this->entityManager = $entityManager;
   }
 
@@ -36,22 +36,21 @@ class BehatGenerateTaxonomyTest extends BaseGenerator {
     $questions = Utils::defaultQuestions();
     $vars = [];
 
-
     $vocabularies = Vocabulary::loadMultiple();
     foreach ($vocabularies as $vocabulary_name => $vocabulary) {
-      $this->setDirectory('../tests/behat/features/');
-
+      if ($this->configFactory->get('installation_path')) {
+        $this->setDirectory($this->configFactory->get('installation_path'));
+      }
+      else {
+        $this->setDirectory('../tests/behat/features/');
+      }
       $vars = $this->buildVars($vocabulary_name, $vocabulary);
-      //print_r($vocabulary); exit();
-
       $this->addFile()
         ->vars($vars)
         ->path($vocabulary_name . '_Terms.feature')
         ->template('taxonomy-test-generator.twig')
         ->action('replace');
-
     }
-
   }
 
   private function buildVars($vocabulary_name, $vocabulary) {
@@ -60,9 +59,8 @@ class BehatGenerateTaxonomyTest extends BaseGenerator {
     $vars['test'] = '';
     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vocabulary_name);
     foreach($terms as $term) {
-      $vars['test'] .= '| ' . $term->name . ' |' . PHP_EOL;
+      $vars['test'] .= '| ' . $term->name . ' |' . PHP_EOL . str_repeat(' ', 6);
     }
-
     return $vars;
   }
 }

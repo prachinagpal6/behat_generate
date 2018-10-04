@@ -24,7 +24,7 @@ class BehatGenerateContentType extends BaseGenerator {
 
   public function __construct($configFactory = NULL, $entityManager, $name = NULL) {
     parent::__construct($name);
-    $this->configFactory = $configFactory;
+    $this->configFactory = $configFactory->get('behat_generate.settings');
     $this->entityManager = $entityManager;
   }
 
@@ -35,10 +35,14 @@ class BehatGenerateContentType extends BaseGenerator {
     $questions = Utils::defaultQuestions();
     $vars = [];
 
-
     $node_types = NodeType::loadMultiple();
     foreach ($node_types as $key => $node) {
-      $this->setDirectory('../tests/behat/features/');
+      if ($this->configFactory->get('installation_path')) {
+        $this->setDirectory($this->configFactory->get('installation_path'));
+      }
+      else {
+        $this->setDirectory('../tests/behat/features/');
+      }
 
       $vars['key'] = $key;
       $vars['test'] = '';
@@ -47,7 +51,7 @@ class BehatGenerateContentType extends BaseGenerator {
 
       foreach ($node_fields as $field => $value) {
         if (strpos($field, 'field_') !== FALSE) {
-          $vars['test'] .= '| ' . $field . ' | ' . $value->getType() . ' |' . PHP_EOL . '    ';
+          $vars['test'] .= '| ' . $field . ' | ' . $value->getType() . ' |' . PHP_EOL . '      ';
         }
       }
 
@@ -66,8 +70,6 @@ class BehatGenerateContentType extends BaseGenerator {
           ->template('content-type-generator.twig')
           ->action('replace');
       }
-
     }
-
   }
 }
