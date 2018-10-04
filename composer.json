@@ -1,0 +1,21 @@
+{
+    "name": "org/behat_generate",
+    "description": "This extension provides new generators for Behat using Drush.",
+    "type": "drupal-drush",
+    "authors": [
+        {
+            "name": "Prachi Nagpal",
+            "email": "prachinagpal6@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^9"
+            }
+        }
+    }
+}

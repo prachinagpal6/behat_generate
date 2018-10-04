@@ -1,0 +1,13 @@
+@api @javascript @{{ node_type }}
+Feature: Creation of {{ node_type }} content type
+  To verify {{ node_type }} content type should have correct field type,
+  and can be created by User.
+
+  Scenario: Generate {{ node_type }} content nodes.
+    Given I am logged in as a user with the "create {{ node_type }} content" permission
+    When I am on "node/add/{{ node_type }}"
+    Then I fill in "edit-title" with "Test {{ node_type }} Node"
+    {{ test }}
+    #Now Pressing Submit
+    When I press the "Save and publish" button
+    Then I should see "{{ label }} Test {{ node_type }} has been created."

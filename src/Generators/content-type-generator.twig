@@ -1,0 +1,11 @@
+@api @javascript @{{ key }}
+Feature: Content types
+
+Scenario Outline: Verify that a $key content type has a given set of fields on it.
+Given the Content Type "{{ key }}" exists
+Then the Content Type "{{ key }}" has "<field_name>" field
+    Then the field "<field_name>" has type "<field_type>"
+
+            Examples:
+            | field_name | field_type |
+            {{ test }}

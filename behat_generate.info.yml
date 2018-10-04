@@ -1,0 +1,5 @@
+name: behat_generate
+type: module
+description: Generates automated tests for Behat.
+package: Custom
+core: 8.x
